@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -19,15 +20,18 @@ public class User {
 
     // nullable: null 허용 여부
     // unique: 중복 허용 여부 (false 일때 중복 허용)
-    @Column(nullable = false, unique = true)
+
+    @NotNull
     @Size(min=4,max=10)
     @Pattern(regexp="^[a-z0-9]*$")
+    @Column
     private String username;
 
-    @Column(nullable = false)
+    @NotNull
     @Size(min=8,max=15)
     @Pattern(regexp="^[a-zA-z0-9]*$")
-    private String password;
+    @Column
+        private String password;
 
 
 

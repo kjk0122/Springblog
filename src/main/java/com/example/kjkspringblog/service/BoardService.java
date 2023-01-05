@@ -38,7 +38,8 @@ public class BoardService {
             User user = userRepository.findByUsername(claims.getSubject()).orElseThrow(
                     () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
             );
-            Board board = boardRepository.save(new Board(boardRequestDto, user.getId()));
+            Board board =new Board(boardRequestDto, user);
+            boardRepository.save(board);
             return new BoardResponseDto(board);
         } else {
             return null;
@@ -92,7 +93,6 @@ public class BoardService {
             Board board = boardRepository.findById(id).orElseThrow(
                     () -> new NullPointerException("해당 데이터는 존재하지 않습니다.")
             );
-
             board.update(requestDto);
 
             return new BoardResponseDto(board);
