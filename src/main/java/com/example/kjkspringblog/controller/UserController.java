@@ -2,8 +2,10 @@ package com.example.kjkspringblog.controller;
 
 import com.example.kjkspringblog.dto.LoginRequestDto;
 import com.example.kjkspringblog.dto.SignupRequestDto;
+import com.example.kjkspringblog.security.UserDetailsImpl;
 import com.example.kjkspringblog.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,6 +37,13 @@ public class UserController {
     public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         userService.login(loginRequestDto, response);
         return "success";
+    }
+
+    // 로그인 한 유저가 메인페이지를 요청할 때 유저의 이름 반환
+    @GetMapping("/info")
+    @ResponseBody
+    public String getUserName(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userDetails.getUsername();
     }
 
     @GetMapping("/forbidden")
