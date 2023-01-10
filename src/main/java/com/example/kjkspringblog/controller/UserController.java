@@ -5,16 +5,12 @@ import com.example.kjkspringblog.dto.SignupRequestDto;
 import com.example.kjkspringblog.security.UserDetailsImpl;
 import com.example.kjkspringblog.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -58,7 +54,6 @@ public class UserController {
     }
     // 로그인 한 유저가 메인페이지를 요청할 때 유저의 이름 반환
     @GetMapping("/info")
-    @ResponseBody
     public String getUserName(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return userDetails.getUsername();
     }
