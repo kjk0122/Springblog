@@ -39,7 +39,7 @@ $(document).ready(function () {
         // 로그인한 유저 이름
         $.ajax({
             type: 'GET',
-            url: `/api/user-info`,
+            url: `/api/user/info`,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", auth);
             },
@@ -54,7 +54,7 @@ $(document).ready(function () {
             error(error, status, request) {
                 console.error(error);
                 logout();
-                window.location.href = host + "/api/user/login-page";
+                window.location.href = host + "/api/user/login";
             }
         });
 
@@ -68,7 +68,7 @@ $(document).ready(function () {
             error(error) {
                 console.error(error);
                 logout();
-                window.location.href = host + "/api/user/login-page";
+                window.location.href = host + "/api/user/login";
             }
         }).done(function (fragment) {
             // console.log(fragment);
@@ -123,7 +123,7 @@ function execSearch() {
         error(error, status, request) {
             console.error(error);
             logout();
-            window.location.href = host + "/api/user/login-page";
+            window.location.href = host + "/api/user/login";
         }
     })
 
@@ -183,7 +183,7 @@ function addProduct(itemDto) {
             }else {
                 console.error(error);
                 logout();
-                window.location.href = host + "/api/user/login-page";
+                window.location.href = host + "/api/user/login";
             }
         }
     })
@@ -232,7 +232,7 @@ function showProduct(folderId = null) {
             error(error, status, request) {
                 console.error(error);
                 logout();
-                window.location.href = host + "/api/user/login-page";
+                window.location.href = host + "/api/user/login";
             }
         },
         callback: function(data, pagination) {
@@ -310,7 +310,7 @@ function addFolder() {
         error(error, status, request) {
             console.error(error);
             logout();
-            window.location.href = host + "/api/user/login-page";
+            window.location.href = host + "/api/user/login";
         }
     })
 }
@@ -393,7 +393,7 @@ function addInputForProductToFolder(productId, button) {
         error(error, status, request) {
             console.error(error);
             logout();
-            window.location.href = host + "/api/user/login-page";
+            window.location.href = host + "/api/user/login";
         }
     });
 }
@@ -447,7 +447,7 @@ function setMyprice() {
         error(error, status, request) {
             console.error(error);
             logout();
-            window.location.href = host + "/api/user/login-page";
+            window.location.href = host + "/api/user/login";
         }
     })
 }
