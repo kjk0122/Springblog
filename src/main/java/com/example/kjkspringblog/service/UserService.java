@@ -28,7 +28,7 @@ public class UserService {
     public void signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
-
+//        String password = signupRequestDto.getPassword();
         // 회원 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
@@ -46,6 +46,7 @@ public class UserService {
 
         User user = new User(username, password, role);
         userRepository.save(user);
+        System.out.println("이름: "+username+"\n비밀번호"+password+"\n역할"+role);
     }
 
 
@@ -58,11 +59,11 @@ public class UserService {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
+
         // 비밀번호 확인
-        if(!user.getPassword().equals(password)){
+        if(!passwordEncoder.matches(password, user.getPassword())){
             throw  new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));
-        System.out.println(jwtUtil.createToken(user.getUsername()));
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
     }
 }
