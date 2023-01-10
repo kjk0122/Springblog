@@ -51,7 +51,7 @@ public class UserService {
 
 
     @Transactional(readOnly = true)
-    public boolean login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
@@ -64,8 +64,6 @@ public class UserService {
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw  new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        System.out.println("사용자"+username + "\n비밀번호"+password);
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
-        return true;
     }
 }

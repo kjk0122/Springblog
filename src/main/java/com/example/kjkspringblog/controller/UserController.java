@@ -5,11 +5,15 @@ import com.example.kjkspringblog.dto.SignupRequestDto;
 import com.example.kjkspringblog.security.UserDetailsImpl;
 import com.example.kjkspringblog.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
 
 
 @RestController
