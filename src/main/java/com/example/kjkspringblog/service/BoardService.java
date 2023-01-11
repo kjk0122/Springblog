@@ -25,6 +25,7 @@ public class BoardService {
 
     @Transactional
     public BoardResponseDto createBoard(BoardRequestDto boardRequestDto, HttpServletRequest request) {
+        System.out.println("입력받음");
         String token = jwtUtil.resolveToken(request);
         Claims claims;
         if (token != null) {
@@ -105,7 +106,6 @@ public class BoardService {
     public String deleteBoard(Long id, HttpServletRequest request) {
         // Request에서 Token 가져오기
         String token = jwtUtil.resolveToken(request);
-        Claims claims;
 
         // 토큰이 있는 경우에만 삭제 가능
         if (token != null) {

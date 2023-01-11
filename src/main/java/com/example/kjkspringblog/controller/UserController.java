@@ -32,7 +32,7 @@ public class UserController {
     }
 
 
-//    @PostMapping("/signup")
+//    @PostMapping("/signup") //이거는 Http 리턴용 Postman으로 하려니 안되서 이렇게 함;;
 //    public ResponseEntity<?> signup(@RequestBody SignupRequestDto signupRequestDto) {
 //        userService.signup(signupRequestDto);
 //        HttpHeaders headers = new HttpHeaders();
@@ -44,7 +44,7 @@ public class UserController {
         userService.signup(signupRequestDto);
         return "success";
     }
-//    @PostMapping("/login")
+//    @PostMapping("/login") //이거는 Http 리턴용 Postman으로 하려니 안되서 이렇게 함;;
 //    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
 //        userService.login(loginRequestDto, response);
 //        HttpHeaders headers = new HttpHeaders();
@@ -53,6 +53,7 @@ public class UserController {
 //    }
     @PostMapping("/login")
     public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        System.out.println("로그인 돌입");
         userService.login(loginRequestDto, response);
         return "success";
     }
