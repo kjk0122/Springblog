@@ -11,5 +11,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Override
     void deleteById(Long aLong);
 
-    List<Board> findAllByOrderByModifiedAtDesc();
+    List<Board> findAllByOrderByCreatedAtDesc();
 }
