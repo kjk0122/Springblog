@@ -28,7 +28,6 @@ public class BoardService {
     public BoardResponseDto createBoard(BoardRequestDto boardRequestDto, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
         Claims claims;
-        if (token != null) {
             if (jwtUtil.validateToken(token)) {
                 // 토큰에서 사용자 정보 가져오기
                 claims = jwtUtil.getUserInfoFromToken(token);
@@ -42,9 +41,6 @@ public class BoardService {
             Board board =new Board(boardRequestDto, user);
             boardRepository.save(board);
             return new BoardResponseDto(board);
-        } else {
-            return null;
-        }
     }
 
 
