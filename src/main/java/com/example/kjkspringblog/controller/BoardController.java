@@ -18,6 +18,7 @@ public class BoardController {
 
     @PostMapping("/post")
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto boardRequestDto, HttpServletRequest request) {
+        System.out.println("회원가입 돌입");
         return boardService.createBoard(boardRequestDto, request);
     }
 
