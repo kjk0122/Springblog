@@ -5,10 +5,10 @@ import com.example.kjkspringblog.dto.BoardResponseDto;
 import com.example.kjkspringblog.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor

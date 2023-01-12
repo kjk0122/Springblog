@@ -10,6 +10,7 @@ import com.example.kjkspringblog.repository.BoardRepository;
 import com.example.kjkspringblog.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -87,7 +89,7 @@ public class BoardService {
             return new BoardResponseDto(board);
         }
         else { //아니면 나가!
-            System.out.println("관리자 아님!");
+            log.info("관리자 아님!");
             return null;
         }
     }
@@ -109,7 +111,7 @@ public class BoardService {
             return "삭제완료";
         }
         else {
-            System.out.println("관리자 아님!");
+            log.info("관리자 아님!");
             return null;
         }
     }
