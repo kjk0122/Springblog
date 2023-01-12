@@ -26,7 +26,6 @@ public class BoardService {
 
     @Transactional
     public BoardResponseDto createBoard(BoardRequestDto boardRequestDto, HttpServletRequest request) {
-        System.out.println("입력받음");
         String token = jwtUtil.resolveToken(request);
         Claims claims;
         if (token != null) {
@@ -79,18 +78,20 @@ public class BoardService {
         // 토큰에서 사용자 정보 가져오기
         Claims claims = jwtUtil.getUserInfoFromToken(token);
 
-            // 토큰에서 가져온 사용자 정보를 사용하여 DB 조회
-            User user =  userRepository.findByUsername(claims.getSubject()).orElseThrow(
-                    () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
+        // 토큰에서 가져온 사용자 정보를 사용하여 DB 조회
+        User user =  userRepository.findByUsername(claims.getSubject()).orElseThrow(
+                () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
+        );
+        // 운영자인가요? 확인하기
+        if(user.getRole()== UserRoleEnum.ADMIN) {
+            Board board = boardRepository.findById(id).orElseThrow(
+                    () -> new NullPointerException("해당 데이터는 존재하지 않습니다.")
             );
-            if(user.getRole()== UserRoleEnum.ADMIN) {
-                Board board = boardRepository.findById(id).orElseThrow(
-                        () -> new NullPointerException("해당 데이터는 존재하지 않습니다.")
-                );
-                board.update(requestDto);
-                return new BoardResponseDto(board);
-            }
-            else {
+            board.update(requestDto);
+            return new BoardResponseDto(board);
+        }
+        else { //아니면 나가!
+            System.out.println("관리자 아님!");
             return null;
         }
     }
@@ -99,20 +100,20 @@ public class BoardService {
     public String deleteBoard(Long id, HttpServletRequest request) {
         // Request에서 Token 가져오기
         String token = jwtUtil.resolveToken(request);
+        // 토큰에서 사용자 정보 가져오기
+        Claims claims = jwtUtil.getUserInfoFromToken(token);
 
-        // 토큰이 있는 경우에만 삭제 가능
-        if (token != null) {
-            // Token 검증
-            if (jwtUtil.validateToken(token)) {
-                // 토큰에서 사용자 정보 가져오기
-            } else {
-                throw new IllegalArgumentException("Token Error");
-            }
-
+        // 토큰에서 가져온 사용자 정보를 사용하여 DB 조회
+        User user =  userRepository.findByUsername(claims.getSubject()).orElseThrow(
+                () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
+        );
+        // 운영자인가요? 확인하기
+        if(user.getRole()== UserRoleEnum.ADMIN) {
             boardRepository.deleteById(id);
-
-            return "삭제가 완료 되었습니다";
-        } else {
+            return "삭제완료";
+        }
+        else {
+            System.out.println("관리자 아님!");
             return null;
         }
     }

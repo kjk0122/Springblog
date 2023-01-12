@@ -26,6 +26,7 @@ public class UserService {
 
     @Transactional
     public void signup(SignupRequestDto signupRequestDto) {
+        //이름, 비밀번호 대조를 위해 값을 뽑아놓음
         String username = signupRequestDto.getUsername();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
 //        String password = signupRequestDto.getPassword();
@@ -34,7 +35,7 @@ public class UserService {
         if (found.isPresent()) {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
-
+        //역할군 지정 위해서 role 변수 만듦 + 초기값은 USER로
         UserRoleEnum role = UserRoleEnum.USER;
 
         if (signupRequestDto.isAdmin()) {
@@ -43,15 +44,15 @@ public class UserService {
             }
             role = UserRoleEnum.ADMIN;
         }
-
+        //등록등록
         User user = new User(username, password, role);
         userRepository.save(user);
-        System.out.println("이름: "+username+"\n비밀번호"+password+"\n역할"+role);
     }
 
 
     @Transactional(readOnly = true)
     public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        //이름, 비밀번호 대조를 위해 값을 뽑아놓음
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
@@ -64,6 +65,7 @@ public class UserService {
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw  new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+        //토큰을 생성해서 유저에게 줌
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
     }
 }
