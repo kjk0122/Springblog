@@ -4,6 +4,6 @@
 ERD 이미지
 
 
-<img src="https://www.notion.so/ERD-19b4112a5505455b9dd3e35943622452#c0b403263623493aabba17c35dd5ac57" />
+<img src="https://user-images.githubusercontent.com/108039772/212037628-a592a166-e0c7-4ca5-9c62-b340741d918a.png" />
 
 
