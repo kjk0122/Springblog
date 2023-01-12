@@ -18,13 +18,11 @@ public class BoardController {
 
     @PostMapping("/post")
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto boardRequestDto, HttpServletRequest request) {
-        System.out.println("회원가입 돌입");
         return boardService.createBoard(boardRequestDto, request);
     }
 
     @GetMapping("/posts")
     public List<BoardResponseDto> getBoards() {
-        // 응답 보내기
         return boardService.getBoards();
     }
     @GetMapping("/post/{id}") //단일조회
@@ -33,7 +31,7 @@ public class BoardController {
         return boardResponseDto;
     }
     @PutMapping("/post/{id}")
-    public BoardResponseDto updateProduct(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest request) {
+    public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest request) {
         BoardResponseDto boardResponseDto = boardService.updateBoard(id, requestDto, request);
         // 응답 보내기 (업데이트된 상품 id)
         return boardResponseDto;

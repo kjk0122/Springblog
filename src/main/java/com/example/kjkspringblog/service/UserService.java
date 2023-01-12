@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +29,23 @@ public class UserService {
     public void signup(SignupRequestDto signupRequestDto) {
         //이름, 비밀번호 대조를 위해 값을 뽑아놓음
         String username = signupRequestDto.getUsername();
+        String pwcheck =  signupRequestDto.getPassword();
+        //패턴 체크
+        String pt = "^[a-z\\\\d`~!@#$%^&*()-_=+]{4,10}$"; String ptt = "^[a-zA-Z\\\\d`~!@#$%^&*()-_=+]{8,15}$";
+
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
 //        String password = signupRequestDto.getPassword();
+        //username 확인
+        if(!Pattern.matches(pt, username)){
+            throw new IllegalArgumentException(
+                    "아이디는 최소 4자 이상, 10자 이하이며 알파벳 소문자(a~z), 숫자(0~9)로 되어야합니다.");
+        }
+        //비밀번호 확인
+        if(!Pattern.matches(ptt, pwcheck)){
+            throw new IllegalArgumentException(
+                    "비밀번호는 최소 8자 이상, 15자 이하이며 알파벳 대소문자(a~z, A~Z), 숫자(0~9), 특수문자로 되어야합니다.");
+
+        }
         // 회원 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {

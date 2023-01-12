@@ -53,7 +53,6 @@ public class UserController {
 //    }
     @PostMapping("/login")
     public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
-        System.out.println("로그인 돌입");
         userService.login(loginRequestDto, response);
         return "success";
     }
