@@ -24,17 +24,15 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     // ADMIN_TOKEN
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
+    //패턴 체크
+    String pt = "^[a-z\\\\d`~!@#$%^&*()-_=+]{4,10}$"; String ptt = "^[a-zA-Z\\\\d`~!@#$%^&*()-_=+]{8,15}$";
 
     @Transactional
     public void signup(SignupRequestDto signupRequestDto) {
         //이름, 비밀번호 대조를 위해 값을 뽑아놓음
         String username = signupRequestDto.getUsername();
         String pwcheck =  signupRequestDto.getPassword();
-        //패턴 체크
-        String pt = "^[a-z\\\\d`~!@#$%^&*()-_=+]{4,10}$"; String ptt = "^[a-zA-Z\\\\d`~!@#$%^&*()-_=+]{8,15}$";
 
-        String password = passwordEncoder.encode(signupRequestDto.getPassword());
-//        String password = signupRequestDto.getPassword();
         //username 확인
         if(!Pattern.matches(pt, username)){
             throw new IllegalArgumentException(
@@ -53,13 +51,17 @@ public class UserService {
         }
         //역할군 지정 위해서 role 변수 만듦 + 초기값은 USER로
         UserRoleEnum role = UserRoleEnum.USER;
-
+        //토큰 확인!
         if (signupRequestDto.isAdmin()) {
             if (!signupRequestDto.getAdminToken().equals(ADMIN_TOKEN)) {
                 throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
             }
             role = UserRoleEnum.ADMIN;
         }
+
+        //저장을 바로 하면 안되고 encoding해서 저장하기
+        String password = passwordEncoder.encode(pwcheck);
+
         //등록등록
         User user = new User(username, password, role);
         userRepository.save(user);
