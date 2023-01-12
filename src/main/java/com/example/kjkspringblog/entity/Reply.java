@@ -1,6 +1,7 @@
 package com.example.kjkspringblog.entity;
 
 import com.example.kjkspringblog.dto.BoardRequestDto;
+import com.example.kjkspringblog.dto.ReplyRequestDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -22,13 +23,13 @@ public class Reply extends Timestamped{
 
 
 
-    public Reply(BoardRequestDto requestDto, User user) {
+    public Reply(ReplyRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.username = user.getUsername();
     }
 
-    public void update(BoardRequestDto requestDto) {
+    public void update(ReplyRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
