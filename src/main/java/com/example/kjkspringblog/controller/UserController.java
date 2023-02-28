@@ -4,11 +4,13 @@ import com.example.kjkspringblog.dto.LoginRequestDto;
 import com.example.kjkspringblog.dto.SignupRequestDto;
 import com.example.kjkspringblog.security.UserDetailsImpl;
 import com.example.kjkspringblog.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
 
-@RestController
-@RequestMapping("/api/user")
+@Controller
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -30,45 +32,25 @@ public class UserController {
     public ModelAndView loginPage() {
         return new ModelAndView("login");
     }
-
-
-//    @PostMapping("/signup") //이거는 Http 리턴용 Postman으로 하려니 안되서 이렇게 함;;
-//    public ResponseEntity<?> signup(@RequestBody SignupRequestDto signupRequestDto) {
-//        userService.signup(signupRequestDto);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(URI.create("/api/user/login"));
-//        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
-//    }
     @PostMapping("/signup")
+    @ApiOperation(value = "회원가입")
+    @ResponseBody
     public String signup(@RequestBody SignupRequestDto signupRequestDto) {
         userService.signup(signupRequestDto);
         return "success";
     }
-//    @PostMapping("/login") //이거는 Http 리턴용 Postman으로 하려니 안되서 이렇게 함;;
-//    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
-//        userService.login(loginRequestDto, response);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(URI.create("/api/user/signup"));
-//        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
-//    }
     @PostMapping("/login")
+    @ApiOperation(value = "로그인")
+    @ResponseBody
     public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         userService.login(loginRequestDto, response);
         return "success";
     }
     // 로그인 한 유저가 메인페이지를 요청할 때 유저의 이름 반환
     @GetMapping("/info")
+    @ApiOperation(value = "유저 이름 반환")
+    @ResponseBody
     public String getUserName(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return userDetails.getUsername();
-    }
-
-    @GetMapping("/forbidden")
-    public ModelAndView getForbidden() {
-        return new ModelAndView("forbidden");
-    }
-
-    @PostMapping("/forbidden")
-    public ModelAndView postForbidden() {
-        return new ModelAndView("forbidden");
     }
 }

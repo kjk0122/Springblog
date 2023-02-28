@@ -15,10 +15,10 @@
 <body>
 <div id="login-form">
   <div id="login-title">Log into Select Shop</div>
-<!--  <button id="login-kakao-btn" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=77f4d486c29f0d9e4c0a677991b6bf96&redirect_uri=http://localhost:8080/api/user/kakao/callback&response_type=code'">-->
+<!--  <button id="login-kakao-btn" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=77f4d486c29f0d9e4c0a677991b6bf96&redirect_uri=http://localhost:8080/user/kakao/callback&response_type=code'">-->
 <!--    카카오로 로그인하기-->
 <!--  </button>-->
-  <button id="login-id-btn" onclick="location.href='/api/user/signup'">
+  <button id="login-id-btn" onclick="location.href='/user/signup'">
     회원 가입하기
   </button>
   <div class="login-id-label">아이디</div>
@@ -55,13 +55,13 @@
 
     $.ajax({
       type: "POST",
-      url: `/api/user/login`,
+      url: `/user/login`,
       contentType: "application/json",
       data: JSON.stringify({username: username, password: password}),
       success: function (response, status, xhr) {
         if(response === 'success') {
           let host = window.location.host;
-          let url = host + '/api/user/board';
+          let url = host + '/user/board';
 
           document.cookie =
                   'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/';
