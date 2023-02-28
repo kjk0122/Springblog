@@ -12,7 +12,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 public class Comment extends Timestamped{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private Long bid;
@@ -21,6 +21,7 @@ public class Comment extends Timestamped{
     private String username;
     @Column(nullable = false)
     private String content;
+
 
     public Comment(CommentRequestDto commentRequestDto, Board board) {
         this.bid=board.getId();

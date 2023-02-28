@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Board extends Timestamped{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String username;
@@ -24,7 +24,7 @@ public class Board extends Timestamped{
 
 
     @OneToMany
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name="board_id")
     private List<Comment> comment = new ArrayList<>();
 
     public Board(BoardRequestDto requestDto, User user) {
