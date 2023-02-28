@@ -20,8 +20,6 @@ public class Board extends Timestamped{
     @Column(nullable = false)
     private String content;
 
-
-
     public Board(BoardRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();

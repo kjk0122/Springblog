@@ -8,6 +8,7 @@ import com.example.kjkspringblog.entity.UserRoleEnum;
 import com.example.kjkspringblog.jwt.JwtUtil;
 import com.example.kjkspringblog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,8 @@ public class UserService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     // ADMIN_TOKEN
-    private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
+    @Value("${ADMIN_TOKEN}")
+    private String ADMIN_TOKEN;
     //패턴 체크
     String pt = "^[a-z\\\\d`~!@#$%^&*()-_=+]{4,10}$"; String ptt = "^[a-zA-Z\\\\d`~!@#$%^&*()-_=+]{8,15}$";
 
