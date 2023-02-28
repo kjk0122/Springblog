@@ -1,7 +1,5 @@
 package com.example.kjkspringblog.service;
 
-import com.example.kjkspringblog.dto.BoardRequestDto;
-import com.example.kjkspringblog.dto.BoardResponseDto;
 import com.example.kjkspringblog.dto.CommentRequestDto;
 import com.example.kjkspringblog.dto.CommentResponseDto;
 import com.example.kjkspringblog.entity.Board;
@@ -18,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +42,7 @@ public class CommentService {
             Board board = boardRepository.findById(id).orElseThrow(
                     () -> new IllegalArgumentException("글이 존재하지 않습니다.")
             );
-            Comment comment =new Comment(commentRequestDto, board);
+            Comment comment =new Comment(commentRequestDto, board, user);
             commentRepository.save(comment);
             return new CommentResponseDto(board,comment);
     }

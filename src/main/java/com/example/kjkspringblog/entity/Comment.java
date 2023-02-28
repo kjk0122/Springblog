@@ -1,6 +1,5 @@
 package com.example.kjkspringblog.entity;
 
-import com.example.kjkspringblog.dto.BoardRequestDto;
 import com.example.kjkspringblog.dto.CommentRequestDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +22,9 @@ public class Comment extends Timestamped{
     private String content;
 
 
-    public Comment(CommentRequestDto commentRequestDto, Board board) {
+    public Comment(CommentRequestDto commentRequestDto, Board board, User user) {
         this.bid=board.getId();
-        this.username=board.getUsername();
+        this.username=user.getUsername();
         this.content = commentRequestDto.getContent();
     }
 
