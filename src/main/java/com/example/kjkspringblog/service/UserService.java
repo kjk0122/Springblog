@@ -30,7 +30,7 @@ public class UserService {
     String pt = "^[a-z\\\\d`~!@#$%^&*()-_=+]{4,10}$"; String ptt = "^[a-zA-Z\\\\d`~!@#$%^&*()-_=+]{8,15}$";
 
     @Transactional
-    public void signup(SignupRequestDto signupRequestDto) {
+    public User signup(SignupRequestDto signupRequestDto) {
         //이름, 비밀번호 대조를 위해 값을 뽑아놓음
         String username = signupRequestDto.getUsername();
         String pwcheck =  signupRequestDto.getPassword();
@@ -66,7 +66,8 @@ public class UserService {
 
         //등록등록
         User user = new User(username, password, role);
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return savedUser;
     }
 
 
