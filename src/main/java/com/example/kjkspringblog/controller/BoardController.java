@@ -23,7 +23,7 @@ public class BoardController {
         return boardService.createBoard(boardRequestDto, request);
     }
 
-    @ApiOperation(value = "목록 가져오기")
+    @ApiOperation(value = "전체 목록 가져오기")
     @GetMapping("/lists")
     public List<BoardResponseDto> getBoards() {
         return boardService.getBoards();

@@ -36,7 +36,8 @@ public class UserController {
     @ApiOperation(value = "회원가입")
     public ResponseEntity<?> signup(@RequestBody SignupRequestDto signupRequestDto) {
         userService.signup(signupRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("회원가입이 완료되었습니다.");
+        return ResponseEntity.status(HttpStatus.CREATED)
+                             .body("회원가입이 완료되었습니다.");
     }
     @PostMapping("/login")
     @ApiOperation(value = "로그인")

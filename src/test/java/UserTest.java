@@ -1,5 +1,4 @@
-package com.example.kjkspringblog.entity;
-
+import com.example.kjkspringblog.entity.UserRoleEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
