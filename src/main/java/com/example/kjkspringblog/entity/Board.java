@@ -21,8 +21,6 @@ public class Board extends Timestamped{
     private String title;
     @Column(nullable = false)
     private String content;
-
-
     @OneToMany
     @JoinColumn(name="board_id")
     private List<Comment> comment = new ArrayList<>();
