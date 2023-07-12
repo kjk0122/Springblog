@@ -89,3 +89,9 @@ tasks.named('test') {
 jar {
     enabled = false
 }
+
+gradle.buildFinished { result ->
+    if (result.failure != null && result.failure.message == "Build cancelled while executing task ':KjkspringblogApplication.main()'") {
+        logger.lifecycle("Build cancelled while executing task ':KjkspringblogApplication.main()'")
+    }
+}
